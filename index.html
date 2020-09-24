@@ -1,25 +1,92 @@
 <html>
     <head>
         <title>Mandlebrot Plot</title>
+
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js" type="text/javascript"/></script>
     </head>
-    <body bgcolor="black">
-    <label style="color: white;">Y Center</label>
-    <input id="xcenter" type="number" min="-5" max="5" value="0"> <br />
-    <label style="color: white;">X Center</label>
-    <input id="ycenter" type="number" min="-5" max="5" value="0"> <br />
-    <label style="color: white;">Iterations</label>
-    <input id="iterations" type="number" min="10" max="10000" value="10"> <br />
-    <label style="color: white;">Iterative Y Range</label>
-    <input id="xrangemin" type="number" max="0" value="-2">
-    <input id="xrangemax" type="number" min ="0" value="2"> <br />
-    <label style="color: white;">Iterative X Range</label>
-    <input id="yrangemin" type="number" max="0" value="-2">
-    <input id="yrangemax" type="number" min ="0" value="2"> <br />
-    <button id="clickBtn" onclick="draw()">Redraw</button>
-    <center>
+    <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg">
+        <br />
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">X Center</span>
+        </div>
+        <input id="ycenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Y Center</span>
+        </div>
+        <input id="xcenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">X Min Iter</span>
+        </div>
+        <input id="yrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">X Max Iter</span>
+        </div>
+        <input id="yrangemax" type="number" value="2" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Y Min Iter</span>
+        </div>
+        <input id="xrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Y Max Iter</span>
+        </div>
+        <input id="xrangemax" type="number" value="2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Iterations</span>
+        </div>
+        <input id="iterations" type="number" min="10" max="10000" value="100" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Divergence</span>
+        </div>
+        <input id="divergence" type="number" value="0" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
+    </div>
+    <div class="alert alert-dark" role="alert">
+        Enter your generation parameters and hit the button to produce a graph. For help see <b>"How to use?"</b> below.
+    </div>
+    <div class="alert alert-danger" role="alert">
+        Generation status will be shown here after you start generation
+    </div>
+    <div class="input-group input-group-sm mb-3">
+    <button id="clickBtn" onclick="draw()" class="btn btn-secondary">Generate</button>
+    </div>
+    
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">How to use?</h4>
+        <p>In this section you'll find how to use this tool to its full potential.</p>
+        <hr>
+        <p class="mb-0">Coming Soon :)</p>
+    </div>
+
+    </div>
+    <div class="col-sm">
+        <br>
+        <center>
         <canvas id="manCanvas" height="800" width="800"></canvas>
     </center>
+    </div>
+    </div>
+    </div>
     </body>
     <script>
 
@@ -33,6 +100,12 @@
         var xmax;
         var ymin;
         var ymax;
+
+        function drawEmpty()
+        {
+            updateVals()
+            drawgrid();
+        }
 
         function draw()
         {
@@ -54,7 +127,7 @@
         function addText(x,y,text)
         {
             canvasContext.font = "10px Arial";
-            canvasContext.fillStyle = "White"
+            //canvasContext.fillStyle = "White"
             canvasContext.fillText(text, x, y);
         }
 
@@ -63,8 +136,8 @@
         canvas = document.getElementById("manCanvas");
         canvasContext = canvas.getContext("2d");
         dimension = canvas.height;
-        centerx = parseInt(document.getElementById("xcenter").value);
-        centery = parseInt(document.getElementById("ycenter").value);
+        centerx = 100 * parseInt(document.getElementById("xcenter").value);
+        centery = 100 * parseInt(document.getElementById("ycenter").value);
         iters = parseInt(document.getElementById("iterations").value);
         xmin = parseInt(document.getElementById("xrangemin").value);
         xmax = parseInt(document.getElementById("xrangemax").value);
@@ -79,7 +152,7 @@
             canvasContext = canvas.getContext("2d");
             dimension = document.getElementById("manCanvas").height;
         
-            canvasContext.strokeStyle = "#ffffff";
+//            canvasContext.strokeStyle = "#ffffff";
 
             //Box
             drawLine(0,0,0,dimension);
@@ -128,5 +201,6 @@
             }
         }    
     }
+    drawEmpty()
     </script>
 </html>
