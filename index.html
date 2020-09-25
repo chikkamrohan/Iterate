@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Mandlebrot Plot</title>
     <!-- CSS only -->
@@ -68,13 +69,17 @@
                 </div>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Set Colour</span>
+                    </div>
+                    <input id="setColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
+                    <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Start Colour</span>
                     </div>
-                    <input id="startColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
+                    <input id="startColour" value="#FFFFFF" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">End Colour</span>
                     </div>
-                    <input id="endColour" value="#00FF00" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
+                    <input id="endColour" value="#000000" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
                 </div>
                 <div class="alert alert-dark" role="alert">
                     Enter your generation parameters and hit the button to produce a graph. For help see <a class="text-info stretched-link" data-toggle="modal" data-target="#ModalHow">How to use?</a>
@@ -130,7 +135,9 @@
       var ymin;
       var ymax;
       var diverge;
-      var colour;
+      var setColour;
+      var startColour;
+      var endColour;
       var zoom;
       var accuracy;
       var log;
@@ -182,8 +189,9 @@
       ymin = parseFloat(document.getElementById("yrangemin").value);
       ymax = parseFloat(document.getElementById("yrangemax").value);
       diverge = parseFloat(document.getElementById("divergence").value);
-      startColour = document.getElementById("startColour").value;
-      endColour = document.getElementById("endColour").value;
+      setColour = document.getElementById("setColour").value;
+      startColour = hexToRgb(document.getElementById("startColour").value);
+      endColour = hexToRgb(document.getElementById("endColour").value);
       zoom = 100 * document.getElementById("zoom").value;
       accuracy = parseFloat(document.getElementById("accuracy").value);
       log = document.getElementById("log");
@@ -213,10 +221,38 @@
           {
               drawLine(i,dimension/2 - centerx,i,dimension/2 + 5 - centerx)
               drawLine(dimension/2 + centery,i,dimension/2 + 5 + centery,i)
-              addText(i,dimension/2 - centerx + 15,-(dimension/2 + centerx - i)/zoom)
-              addText(dimension/2 + centery + 5,i,(dimension/2 - centery - i)/zoom)
+              addText(i,dimension/2 - centerx + 15,(-(dimension/2 + centerx - i)/zoom).toFixed(4))
+              addText(dimension/2 + centery + 5,i,((dimension/2 - centery - i)/zoom).toFixed(4))
           }
       }
+
+      function pickColour(colour1, colour2, weight) {
+        var w1 = weight;
+        var w2 = 1 - w1;
+        var r = Math.round(colour1[0] * w1 + colour2[0] * w2)
+        var g = Math.round(colour1[1] * w1 + colour2[1] * w2)
+        var b = Math.round(colour1[2] * w1 + colour2[2] * w2)
+        return rgbToHex(r,g,b);
+        }
+
+        function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+        }
+
+        function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+
+        function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+        }
+
       //Mandelbrot Equation: z = z^2 +c
       
       function drawmandel(){
@@ -224,10 +260,11 @@
       {
           for (i = ymin; i < ymax; i = i+accuracy)    //Loop between -2 < x < 2
           {   
+              count = 0
               z = 0   //Start from 0
-              console.log("Mandelbrotting " + i + " + " + h)
               for(j=0; j < iters; j++)
               {
+                  count++
                   //z=null;
                   z = math.add(math.multiply(z,z),math.complex(i,h))    //z_(n+1) = z_(n)^2 + c
                   //async (z) => {await func(z,math.complex(i,h));}  
@@ -240,13 +277,20 @@
               if(z != Infinity && z.toString() != "NaN" && parseInt(z.abs()) < parseInt(diverge))
               {
                   logScript = logScript + "Iterated: " + math.complex(i,h) + "\nFinal value is: " + z + "\nAbsolute value: " + z.abs() + "\n"
-                  canvasContext.strokeStyle = startColour;
-                  canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),0.1,0.1);
+                  canvasContext.strokeStyle = setColour;
+                  canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),accuracy,accuracy);
+              }
+              else
+              {
+                canvasContext.strokeStyle = pickColour([startColour.r,startColour.g,startColour.b],[endColour.r,endColour.g,endColour.b],parseFloat(count/iters));
+                canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),accuracy,accuracy);
               }
           }
       } 
-      log.innerHTML = logScript;   
+      log.innerHTML = logScript;
+      logScript = "";   
       }
       drawEmpty()
 </script>
+
 </html>
