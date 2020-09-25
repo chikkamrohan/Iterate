@@ -9,7 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js" type="text/javascript"/></script>
+        <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js" type="text/javascript"></script>
     </head>
     <body>
     <div class="container-fluid">
@@ -59,23 +59,31 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Divergence</span>
         </div>
-        <input id="divergence" type="number" value="0" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
+        <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Start Colour</span>
+        </div>
+        <input id="startColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">End Colour</span>
+        </div>
+        <input id="endColour" value="#00FF00" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
     </div>
     <div class="alert alert-dark" role="alert">
         Enter your generation parameters and hit the button to produce a graph. For help see <b>"How to use?"</b> below.
     </div>
-    <div class="alert alert-danger" role="alert">
-        Generation status will be shown here after you start generation
-    </div>
     <div class="input-group input-group-sm mb-3">
-    <button id="clickBtn" onclick="draw()" class="btn btn-secondary">Generate</button>
+    <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate</button>
     </div>
     
     <div class="alert alert-warning" role="alert">
         <h4 class="alert-heading">How to use?</h4>
         <p>In this section you'll find how to use this tool to its full potential.</p>
         <hr>
-        <p class="mb-0">Coming Soon :)</p>
+        <p class="mb-0">Coming Soon :) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
     </div>
 
     </div>
@@ -100,6 +108,8 @@
         var xmax;
         var ymin;
         var ymax;
+        var diverge;
+        var colour;
 
         function drawEmpty()
         {
@@ -107,15 +117,19 @@
             drawgrid();
         }
 
-        function draw()
+        async function draw()
         {
-            alert("Draw Started")
-            document.getElementById("clickBtn").enabled = false
+            document.getElementById("clickBtn").className = "btn btn-warning";
+            document.getElementById("clickBtn").innerHTML = "Generating graph"
+            await new Promise(r => setTimeout(r, 100));
             updateVals()
             drawgrid();
             drawmandel();
-            document.getElementById("clickBtn").enabled = true
-            alert("Plot Finished")
+            document.getElementById("clickBtn").className = "btn btn-success";
+            document.getElementById("clickBtn").innerHTML = "Generation complete"
+            await new Promise(r => setTimeout(r, 2000));
+            document.getElementById("clickBtn").className = "btn btn-info";
+            document.getElementById("clickBtn").innerHTML = "Regenerate"
         }
         function drawLine(startx,starty,endx,endy)
         {
@@ -127,7 +141,6 @@
         function addText(x,y,text)
         {
             canvasContext.font = "10px Arial";
-            //canvasContext.fillStyle = "White"
             canvasContext.fillText(text, x, y);
         }
 
@@ -143,6 +156,9 @@
         xmax = parseInt(document.getElementById("xrangemax").value);
         ymin = parseInt(document.getElementById("yrangemin").value);
         ymax = parseInt(document.getElementById("yrangemax").value);
+        diverge = parseInt(document.getElementById("divergence").value);
+        startColour = document.getElementById("startColour").value;
+        endColour = document.getElementById("endColour").value;
         }
 
         function drawgrid(){
@@ -152,7 +168,7 @@
             canvasContext = canvas.getContext("2d");
             dimension = document.getElementById("manCanvas").height;
         
-//            canvasContext.strokeStyle = "#ffffff";
+            canvasContext.strokeStyle = "#000000";
 
             //Box
             drawLine(0,0,0,dimension);
@@ -187,15 +203,15 @@
                     z = math.add(math.multiply(z,z),math.complex(i,h))    //z_(n+1) = z_(n)^2 + c
                     //async (z) => {await func(z,math.complex(i,h));}  
 
-                    if(z == Infinity || z.toString() == "NaN")
+                    if(z == Infinity || z.toString() == "NaN" || parseInt(z.abs()) > parseInt(diverge))
                     {
                         break;
                     }     
                 }
-                if(z != Infinity && z.toString() != "NaN")
+                if(z != Infinity && z.toString() != "NaN" && parseInt(z.abs()) < parseInt(diverge))
                 {
                     console.log("Final value after iters " + z)
-                    canvasContext.strokeStyle = "#00FF00";
+                    canvasContext.strokeStyle = startColour;
                     canvasContext.strokeRect((dimension/2) + centery + (i*100),dimension/2 - centerx - (h*100),0.1,0.1);
                 }
             }
