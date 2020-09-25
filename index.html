@@ -1,236 +1,232 @@
 <html>
-    <head>
-        <title>Mandlebrot Plot</title>
-
-        <!-- CSS only -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-        <!-- JS, Popper.js, and jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js" type="text/javascript"></script>
-    </head>
-    <body>
-    <div class="container-fluid">
-        <div class="row">
+   <head>
+      <title>Mandlebrot Plot</title>
+      <!-- CSS only -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+      <!-- JS, Popper.js, and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js" type="text/javascript"></script>
+   </head>
+   <body>
+      <div class="container-fluid">
+         <div class="row">
             <div class="col-lg">
-        <br />
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">X Center</span>
-        </div>
-        <input id="ycenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Y Center</span>
-        </div>
-        <input id="xcenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-    </div>
-
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">X Min Iter</span>
-        </div>
-        <input id="yrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">X Max Iter</span>
-        </div>
-        <input id="yrangemax" type="number" value="2" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Y Min Iter</span>
-        </div>
-        <input id="xrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Y Max Iter</span>
-        </div>
-        <input id="xrangemax" type="number" value="2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-    </div>
-
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Iterations</span>
-        </div>
-        <input id="iterations" type="number" min="10" max="10000" value="100" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Accuracy</span>
-        </div>
-        <input id="accuracy" type="number" value="0.01" class="form-control" aria-label="Accuracy" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Divergence</span>
-        </div>
-        <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Zoom</span>
-        </div>
-        <input id="zoom" type="number" value="1" class="form-control" aria-label="Zoom" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Start Colour</span>
-        </div>
-        <input id="startColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
-        &nbsp;
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">End Colour</span>
-        </div>
-        <input id="endColour" value="#00FF00" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
-    </div>
-    <div class="alert alert-dark" role="alert">
-        Enter your generation parameters and hit the button to produce a graph. For help see <b>"How to use?"</b> below.
-    </div>
-    <div class="input-group input-group-sm mb-3">
-    <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate</button>
-    </div>
-    
-    <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">How to use?</h4>
-        <p>In this section you'll find how to use this tool to its full potential.</p>
-        <hr>
-        <p class="mb-0">Coming Soon :) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-    </div>
-
-    </div>
-    <div class="col-sm">
-        <br>
-        <center>
-        <canvas id="manCanvas" height="800" width="800"></canvas>
-    </center>
-    </div>
-    </div>
-    </div>
-    </body>
-    <script>
-
-        var canvas;
-        var canvasContext;
-        var dimension;
-        var centerx;
-        var centery;
-        var iters;
-        var xmin;
-        var xmax;
-        var ymin;
-        var ymax;
-        var diverge;
-        var colour;
-        var zoom;
-        var accuracy;
-
-        function drawEmpty()
-        {
-            updateVals()
-            drawgrid();
-        }
-
-        async function draw()
-        {
-            document.getElementById("clickBtn").className = "btn btn-warning";
-            document.getElementById("clickBtn").innerHTML = "Generating graph"
-            await new Promise(r => setTimeout(r, 100));
-            updateVals()
-            drawgrid();
-            drawmandel();
-            document.getElementById("clickBtn").className = "btn btn-success";
-            document.getElementById("clickBtn").innerHTML = "Generation complete"
-            await new Promise(r => setTimeout(r, 2000));
-            document.getElementById("clickBtn").className = "btn btn-info";
-            document.getElementById("clickBtn").innerHTML = "Regenerate"
-        }
-        function drawLine(startx,starty,endx,endy)
-        {
-        canvasContext.moveTo(startx, starty);
-        canvasContext.lineTo(endx, endy);
-        canvasContext.stroke();
-        }
-
-        function addText(x,y,text)
-        {
-            canvasContext.font = "10px Arial";
-            canvasContext.fillText(text, x, y);
-        }
-
-        function updateVals()
-        {
-        canvas = document.getElementById("manCanvas");
-        canvasContext = canvas.getContext("2d");
-        dimension = canvas.height;
-        centerx = 100 * parseFloat(document.getElementById("xcenter").value);
-        centery = 100 * parseFloat(document.getElementById("ycenter").value);
-        iters = parseInt(document.getElementById("iterations").value);
-        xmin = parseFloat(document.getElementById("xrangemin").value);
-        xmax = parseFloat(document.getElementById("xrangemax").value);
-        ymin = parseFloat(document.getElementById("yrangemin").value);
-        ymax = parseFloat(document.getElementById("yrangemax").value);
-        diverge = parseInt(document.getElementById("divergence").value);
-        startColour = document.getElementById("startColour").value;
-        endColour = document.getElementById("endColour").value;
-        zoom = 100 * document.getElementById("zoom").value;
-        accuracy = parseFloat(document.getElementById("accuracy").value);
-        }
-
-        function drawgrid(){
-            canvasContext.clearRect(0, 0, canvas.height, canvas.width);
-            canvasContext.beginPath();
-            canvas = document.getElementById("manCanvas");
-            canvasContext = canvas.getContext("2d");
-            dimension = document.getElementById("manCanvas").height;
-        
-            canvasContext.strokeStyle = "#000000";
-
-            //Box
-            drawLine(0,0,0,dimension);
-            drawLine(dimension,0,dimension,dimension);
-            drawLine(0,0,dimension,0);
-            drawLine(0,dimension,dimension,dimension);
-
-            //Axis
-            drawLine(dimension/2 + centery,0,dimension/2 + centery,dimension); //y
-            drawLine(0,dimension/2  - centerx,dimension,dimension/2 - centerx); //x
-
-            for(i = 0; i <= dimension; i = i+50) //Ticks + Labels
-            {
-                drawLine(i,dimension/2 - centerx,i,dimension/2 + 5 - centerx)
-                drawLine(dimension/2 + centery,i,dimension/2 + 5 + centery,i)
-                addText(i,dimension/2 - centerx + 15,-(dimension/2 + centerx - i)/zoom)
-                addText(dimension/2 + centery + 5,i,(dimension/2 - centery - i)/zoom)
-            }
-        }
-        //Mandelbrot Equation: z = z^2 +c
-
-        function drawmandel(){
-        for (h=xmin; h<=xmax; h = h+accuracy) //Loop between -2 < y < 2
-        {
-            for (i = ymin; i < ymax; i = i+accuracy)    //Loop between -2 < x < 2
-            {   
-                z = 0   //Start from 0
-                console.log("Mandelbrotting " + i + " + " + h)
-                for(j=0; j < iters; j++)
-                {
-                    //z=null;
-                    z = math.add(math.multiply(z,z),math.complex(i,h))    //z_(n+1) = z_(n)^2 + c
-                    //async (z) => {await func(z,math.complex(i,h));}  
-
-                    if(z == Infinity || z.toString() == "NaN" || parseInt(z.abs()) > parseInt(diverge))
-                    {
-                        break;
-                    }     
-                }
-                if(z != Infinity && z.toString() != "NaN" && parseInt(z.abs()) < parseInt(diverge))
-                {
-                    console.log("Final value after iters " + z)
-                    canvasContext.strokeStyle = startColour;
-                    canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),0.1,0.1);
-                }
-            }
-        }    
-    }
-    drawEmpty()
-    </script>
+               <br />
+               <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">X Center</span>
+                  </div>
+                  <input id="ycenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Y Center</span>
+                  </div>
+                  <input id="xcenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+               </div>
+               <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">X Min Iter</span>
+                  </div>
+                  <input id="yrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">X Max Iter</span>
+                  </div>
+                  <input id="yrangemax" type="number" value="2" class="form-control" aria-label="X Center" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Y Min Iter</span>
+                  </div>
+                  <input id="xrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Y Max Iter</span>
+                  </div>
+                  <input id="xrangemax" type="number" value="2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+               </div>
+               <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Iterations</span>
+                  </div>
+                  <input id="iterations" type="number" min="10" max="10000" value="100" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Accuracy</span>
+                  </div>
+                  <input id="accuracy" type="number" value="0.01" class="form-control" aria-label="Accuracy" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Divergence</span>
+                  </div>
+                  <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Zoom</span>
+                  </div>
+                  <input id="zoom" type="number" value="1" class="form-control" aria-label="Zoom" aria-describedby="basic-addon1">
+               </div>
+               <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">Start Colour</span>
+                  </div>
+                  <input id="startColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
+                  &nbsp;
+                  <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1">End Colour</span>
+                  </div>
+                  <input id="endColour" value="#00FF00" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
+               </div>
+               <div class="alert alert-dark" role="alert">
+                  Enter your generation parameters and hit the button to produce a graph. For help see <b>"How to use?"</b> below.
+               </div>
+               <div class="input-group input-group-sm mb-3">
+                  <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate</button>
+               </div>
+               <div class="alert alert-warning fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="alert-heading">How to use?</h4>
+                  <p>In this section you'll find how to use this tool to its full potential.</p>
+                  <hr>
+                  <p class="mb-0">Coming Soon :) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+               </div>
+            </div>
+            <div class="col-sm">
+               <br>
+               <center>
+                  <canvas id="manCanvas" height="800" width="800"></canvas>
+               </center>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script>
+      var canvas;
+      var canvasContext;
+      var dimension;
+      var centerx;
+      var centery;
+      var iters;
+      var xmin;
+      var xmax;
+      var ymin;
+      var ymax;
+      var diverge;
+      var colour;
+      var zoom;
+      var accuracy;
+      
+      function drawEmpty()
+      {
+          updateVals()
+          drawgrid();
+      }
+      
+      async function draw()
+      {
+          document.getElementById("clickBtn").className = "btn btn-warning";
+          document.getElementById("clickBtn").innerHTML = "Generating graph"
+          await new Promise(r => setTimeout(r, 100));
+          updateVals()
+          drawgrid();
+          drawmandel();
+          document.getElementById("clickBtn").className = "btn btn-success";
+          document.getElementById("clickBtn").innerHTML = "Generation complete"
+          await new Promise(r => setTimeout(r, 2000));
+          document.getElementById("clickBtn").className = "btn btn-info";
+          document.getElementById("clickBtn").innerHTML = "Regenerate"
+      }
+      function drawLine(startx,starty,endx,endy)
+      {
+      canvasContext.moveTo(startx, starty);
+      canvasContext.lineTo(endx, endy);
+      canvasContext.stroke();
+      }
+      
+      function addText(x,y,text)
+      {
+          canvasContext.font = "10px Arial";
+          canvasContext.fillText(text, x, y);
+      }
+      
+      function updateVals()
+      {
+      canvas = document.getElementById("manCanvas");
+      canvasContext = canvas.getContext("2d");
+      dimension = canvas.height;
+      centerx = 100 * parseFloat(document.getElementById("xcenter").value);
+      centery = 100 * parseFloat(document.getElementById("ycenter").value);
+      iters = parseInt(document.getElementById("iterations").value);
+      xmin = parseFloat(document.getElementById("xrangemin").value);
+      xmax = parseFloat(document.getElementById("xrangemax").value);
+      ymin = parseFloat(document.getElementById("yrangemin").value);
+      ymax = parseFloat(document.getElementById("yrangemax").value);
+      diverge = parseInt(document.getElementById("divergence").value);
+      startColour = document.getElementById("startColour").value;
+      endColour = document.getElementById("endColour").value;
+      zoom = 100 * document.getElementById("zoom").value;
+      accuracy = parseFloat(document.getElementById("accuracy").value);
+      }
+      
+      function drawgrid(){
+          canvasContext.clearRect(0, 0, canvas.height, canvas.width);
+          canvasContext.beginPath();
+          canvas = document.getElementById("manCanvas");
+          canvasContext = canvas.getContext("2d");
+          dimension = document.getElementById("manCanvas").height;
+      
+          canvasContext.strokeStyle = "#000000";
+      
+          //Box
+          drawLine(0,0,0,dimension);
+          drawLine(dimension,0,dimension,dimension);
+          drawLine(0,0,dimension,0);
+          drawLine(0,dimension,dimension,dimension);
+      
+          //Axis
+          drawLine(dimension/2 + centery,0,dimension/2 + centery,dimension); //y
+          drawLine(0,dimension/2  - centerx,dimension,dimension/2 - centerx); //x
+      
+          for(i = 0; i <= dimension; i = i+50) //Ticks + Labels
+          {
+              drawLine(i,dimension/2 - centerx,i,dimension/2 + 5 - centerx)
+              drawLine(dimension/2 + centery,i,dimension/2 + 5 + centery,i)
+              addText(i,dimension/2 - centerx + 15,-(dimension/2 + centerx - i)/zoom)
+              addText(dimension/2 + centery + 5,i,(dimension/2 - centery - i)/zoom)
+          }
+      }
+      //Mandelbrot Equation: z = z^2 +c
+      
+      function drawmandel(){
+      for (h=xmin; h<=xmax; h = h+accuracy) //Loop between -2 < y < 2
+      {
+          for (i = ymin; i < ymax; i = i+accuracy)    //Loop between -2 < x < 2
+          {   
+              z = 0   //Start from 0
+              console.log("Mandelbrotting " + i + " + " + h)
+              for(j=0; j < iters; j++)
+              {
+                  //z=null;
+                  z = math.add(math.multiply(z,z),math.complex(i,h))    //z_(n+1) = z_(n)^2 + c
+                  //async (z) => {await func(z,math.complex(i,h));}  
+      
+                  if(z == Infinity || z.toString() == "NaN" || parseInt(z.abs()) > parseInt(diverge))
+                  {
+                      break;
+                  }     
+              }
+              if(z != Infinity && z.toString() != "NaN" && parseInt(z.abs()) < parseInt(diverge))
+              {
+                  console.log("Final value after iters " + z)
+                  canvasContext.strokeStyle = startColour;
+                  canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),0.1,0.1);
+              }
+          }
+      }    
+      }
+      drawEmpty()
+   </script>
 </html>
