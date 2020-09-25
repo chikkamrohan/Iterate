@@ -57,9 +57,19 @@
         <input id="iterations" type="number" min="10" max="10000" value="100" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1">
         &nbsp;
         <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accuracy</span>
+        </div>
+        <input id="accuracy" type="number" value="0.01" class="form-control" aria-label="Accuracy" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Divergence</span>
         </div>
         <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1">
+        &nbsp;
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Zoom</span>
+        </div>
+        <input id="zoom" type="number" value="1" class="form-control" aria-label="Zoom" aria-describedby="basic-addon1">
     </div>
     <div class="input-group input-group-sm mb-3">
         <div class="input-group-prepend">
@@ -110,6 +120,8 @@
         var ymax;
         var diverge;
         var colour;
+        var zoom;
+        var accuracy;
 
         function drawEmpty()
         {
@@ -149,16 +161,18 @@
         canvas = document.getElementById("manCanvas");
         canvasContext = canvas.getContext("2d");
         dimension = canvas.height;
-        centerx = 100 * parseInt(document.getElementById("xcenter").value);
-        centery = 100 * parseInt(document.getElementById("ycenter").value);
+        centerx = 100 * parseFloat(document.getElementById("xcenter").value);
+        centery = 100 * parseFloat(document.getElementById("ycenter").value);
         iters = parseInt(document.getElementById("iterations").value);
-        xmin = parseInt(document.getElementById("xrangemin").value);
-        xmax = parseInt(document.getElementById("xrangemax").value);
-        ymin = parseInt(document.getElementById("yrangemin").value);
-        ymax = parseInt(document.getElementById("yrangemax").value);
+        xmin = parseFloat(document.getElementById("xrangemin").value);
+        xmax = parseFloat(document.getElementById("xrangemax").value);
+        ymin = parseFloat(document.getElementById("yrangemin").value);
+        ymax = parseFloat(document.getElementById("yrangemax").value);
         diverge = parseInt(document.getElementById("divergence").value);
         startColour = document.getElementById("startColour").value;
         endColour = document.getElementById("endColour").value;
+        zoom = 100 * document.getElementById("zoom").value;
+        accuracy = parseFloat(document.getElementById("accuracy").value);
         }
 
         function drawgrid(){
@@ -184,16 +198,16 @@
             {
                 drawLine(i,dimension/2 - centerx,i,dimension/2 + 5 - centerx)
                 drawLine(dimension/2 + centery,i,dimension/2 + 5 + centery,i)
-                addText(i,dimension/2 - centerx + 15,-(dimension/2 + centerx - i)/100)
-                addText(dimension/2 + centery + 5,i,(dimension/2 - centery - i)/100)
+                addText(i,dimension/2 - centerx + 15,-(dimension/2 + centerx - i)/zoom)
+                addText(dimension/2 + centery + 5,i,(dimension/2 - centery - i)/zoom)
             }
         }
         //Mandelbrot Equation: z = z^2 +c
 
         function drawmandel(){
-        for (h=xmin; h<=xmax; h = h+0.01) //Loop between -2 < y < 2
+        for (h=xmin; h<=xmax; h = h+accuracy) //Loop between -2 < y < 2
         {
-            for (i = ymin; i < ymax; i = i+0.01)    //Loop between -2 < x < 2
+            for (i = ymin; i < ymax; i = i+accuracy)    //Loop between -2 < x < 2
             {   
                 z = 0   //Start from 0
                 console.log("Mandelbrotting " + i + " + " + h)
@@ -212,7 +226,7 @@
                 {
                     console.log("Final value after iters " + z)
                     canvasContext.strokeStyle = startColour;
-                    canvasContext.strokeRect((dimension/2) + centery + (i*100),dimension/2 - centerx - (h*100),0.1,0.1);
+                    canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),0.1,0.1);
                 }
             }
         }    
