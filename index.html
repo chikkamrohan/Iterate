@@ -84,12 +84,12 @@
                 <div class="alert alert-dark" role="alert">
                     Enter your generation parameters and hit the button to produce a graph. For help see <a class="text-info stretched-link" data-toggle="modal" data-target="#ModalHow">How to use?</a>
                 </div>
-                <div class="input-group mb-2">
+                <!--<div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Log</span>
                     </div>
                     <textarea rows="22" id="log" class="form-control" aria-label="Log" disabled></textarea>
-                </div>
+                </div>-->
                 <div class="input-group mb-2">
                     <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate</button>
                 </div>
@@ -152,13 +152,10 @@
       async function draw()
       {
           document.getElementById("clickBtn").className = "btn btn-warning";
-          document.getElementById("clickBtn").innerHTML = "Generating graph"
-          await new Promise(r => setTimeout(r, 100));
+          document.getElementById("clickBtn").innerHTML = "Generation in progress"
           updateVals()
           drawgrid();
           drawmandel();
-          document.getElementById("clickBtn").className = "btn btn-success";
-          document.getElementById("clickBtn").innerHTML = "Generation complete"
           await new Promise(r => setTimeout(r, 2000));
           document.getElementById("clickBtn").className = "btn btn-info";
           document.getElementById("clickBtn").innerHTML = "Regenerate"
@@ -255,7 +252,7 @@
 
       //Mandelbrot Equation: z = z^2 +c
       
-      function drawmandel(){
+      async function drawmandel(){
       for (h=xmin; h<=xmax; h = h+accuracy) //Loop between -2 < y < 2
       {
           for (i = ymin; i < ymax; i = i+accuracy)    //Loop between -2 < x < 2
@@ -276,7 +273,7 @@
               }
               if(z != Infinity && z.toString() != "NaN" && parseInt(z.abs()) < parseInt(diverge))
               {
-                  logScript = logScript + "Iterated: " + math.complex(i,h) + "\nFinal value is: " + z + "\nAbsolute value: " + z.abs() + "\n"
+                  //logScript = logScript + "Iterated: " + math.complex(i,h) + "\nFinal value is: " + z + "\nAbsolute value: " + z.abs() + "\n"
                   canvasContext.strokeStyle = setColour;
                   canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),accuracy,accuracy);
               }
@@ -286,9 +283,10 @@
                 canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),accuracy,accuracy);
               }
           }
+          await new Promise(r => setInterval(r, 0));
       } 
-      log.innerHTML = logScript;
-      logScript = "";   
+      //log.innerHTML = logScript;
+      //logScript = "";   
       }
       drawEmpty()
 </script>
