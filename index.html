@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <title>Mandlebrot Plot</title>
     <!-- CSS only -->
@@ -20,105 +19,125 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg">
-                <br />
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">X Center</span>
-                    </div>
-                    <input id="ycenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="X Center" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Y Center</span>
-                    </div>
-                    <input id="xcenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">X Min Iter</span>
-                    </div>
-                    <input id="yrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">X Max Iter</span>
-                    </div>
-                    <input id="yrangemax" type="number" value="2" class="form-control" aria-label="X Center" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Y Min Iter</span>
-                    </div>
-                    <input id="xrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Y Max Iter</span>
-                    </div>
-                    <input id="xrangemax" type="number" value="2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Iterations</span>
-                    </div>
-                    <input id="iterations" type="number" min="10" max="10000" value="100" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Accuracy</span>
-                    </div>
-                    <input id="accuracy" type="number" value="0.01" class="form-control" aria-label="Accuracy" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Divergence</span>
-                    </div>
-                    <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Zoom</span>
-                    </div>
-                    <input id="zoom" type="number" value="1" class="form-control" aria-label="Zoom" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Set Colour</span>
-                    </div>
-                    <input id="setColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Start Colour</span>
-                    </div>
-                    <input id="startColour" value="#FFFFFF" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">End Colour</span>
-                    </div>
-                    <input id="endColour" value="#000000" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
-                </div>
-                <div class="alert alert-dark" role="alert">
-                    Enter your generation parameters and hit the button to produce a graph. For help see <a class="text-info stretched-link" data-toggle="modal" data-target="#ModalHow">How to use?</a>
-                </div>
-                <!--<div class="input-group mb-2">
+                <br>
+                <div class="card">
+
+                    <div class="card-body">
+                        <h3>Generation Properties</h3>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">X Center</span>
+                            </div>
+                            <input id="ycenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="X Center" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Y Center</span>
+                            </div>
+                            <input id="xcenter" type="number" min="-5" max="5" value="0" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">X Min Iter</span>
+                            </div>
+                            <input id="yrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">X Max Iter</span>
+                            </div>
+                            <input id="yrangemax" type="number" value="2" class="form-control" aria-label="X Center" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Y Min Iter</span>
+                            </div>
+                            <input id="xrangemin" type="number" value="-2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Y Max Iter</span>
+                            </div>
+                            <input id="xrangemax" type="number" value="2" class="form-control" aria-label="Y Center" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Iterations</span>
+                            </div>
+                            <input id="iterations" type="number" min="10" max="10000" value="30" class="form-control" aria-label="Iterations" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Accuracy</span>
+                            </div>
+                            <input id="accuracy" type="number" value="0.01" class="form-control" aria-label="Accuracy" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Divergence</span>
+                            </div>
+                            <input id="divergence" type="number" value="2" class="form-control" aria-label="Divergence" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Zoom</span>
+                            </div>
+                            <input id="zoom" type="number" value="2" class="form-control" aria-label="Zoom" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Set Colour</span>
+                            </div>
+                            <input id="setColour" value="#40e0d0" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Start Colour</span>
+                            </div>
+                            <input id="startColour" value="#FFFFFF" class="form-control" aria-label="Colour" aria-describedby="basic-addon1"> &nbsp;
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">End Colour</span>
+                            </div>
+                            <input id="endColour" value="#000000" class="form-control" aria-label="Colour" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="alert alert-dark" role="alert">
+                            Enter your generation parameters and hit the button to produce a graph.
+                        </div>
+                        <!--<div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Log</span>
                     </div>
                     <textarea rows="22" id="log" class="form-control" aria-label="Log" disabled></textarea>
                 </div>-->
-                <div class="input-group mb-2">
-                    <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate</button>
-                </div>
-            </div>
+                        <div class="input-group mb-2">
+                            <button id="clickBtn" onclick="draw()" class="btn btn-info">Generate Custom</button>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Preview" id="preview" checked="true">&nbsp;Preview?</input>
+                                </div>
+                            </div>
 
-            <div class="modal fade" id="ModalHow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">How to use?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                       <span aria-hidden="true">&times;</span>
-                     </button>
                         </div>
-                        <div class="modal-body">
-                            Coming Soon :) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Generation Presets</h3>
+                        <div class="input-group mb-2">
+                            <button id="clickBtn" onclick="setCustomVals(0,0,30,-2,2,-2,2,2,2,0.01);draw()" class="btn btn-success">Preset 1 - Low Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(0,0,30,-2,2,-2,2,2,2,0.005);draw()" class="btn btn-warning">Preset 1 - High Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(0,0,100,-2,2,-2,2,2,2,0.005);draw()" class="btn btn-danger">Preset 1 - Very High Fidelity</button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                        <div class="input-group mb-2">
+                            <button id="clickBtn" onclick="setCustomVals(0,0,30,-0.8,0.8,-0.8,0.8,2,5,0.004);draw()" class="btn btn-success">Preset 2 - Low Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(0,0,30,-0.8,0.8,-0.8,0.8,2,5,0.002);draw()" class="btn btn-warning">Preset 2 - High Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(0,0,100,-0.8,0.8,-0.8,0.8,2,5,0.002);draw()" class="btn btn-danger">Preset 2 - Very High Fidelity</button>
+                        </div>
+                        <div class="input-group mb-2">
+                            <button id="clickBtn" onclick="setCustomVals(-90,3,30,0.267,0.28,-0.01,-0.001,2,330,0.00003);draw()" class="btn btn-success">Preset 3 - Low Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(-90,3,30,0.267,0.28,-0.01,-0.001,2,330,0.000015);draw()" class="btn btn-warning">Preset 3 - High Fidelity</button> &nbsp;
+                            <button id="clickBtn" onclick="setCustomVals(-90,3,100,0.267,0.28,-0.01,-0.001,2,330,0.000015);draw()" class="btn btn-danger">Preset 3 - Very High Fidelity</button>
+                        </div>
+                        <div class="alert alert-danger" role="alert">
+                            Higher presets and fidelities will take longer to generate. Lower your generation properties or turn off the generation preview to reduce load.
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-sm">
                 <br>
-                <center>
-                    <canvas id="manCanvas" height="800" width="800"></canvas>
-                </center>
+                <div class="card">
+                    <div class="card-body">
+                        <center>
+                            <canvas id="manCanvas" height="800" width="800"></canvas>
+                        </center>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -142,6 +161,7 @@
       var accuracy;
       var log;
       var logScript;
+      var preview;
       
       function drawEmpty()
       {
@@ -149,10 +169,25 @@
           drawgrid();
       }
       
+      function setCustomVals(pcentery,pcenterx,piters,pymin,pymax,pxmin,pxmax,pdiverge,pzoom,paccuracy)
+      {
+      document.getElementById("xcenter").value = pcenterx;
+      document.getElementById("ycenter").value = pcentery;
+      document.getElementById("iterations").value =piters;
+      document.getElementById("xrangemin").value =pxmin;
+      document.getElementById("xrangemax").value =pxmax;
+      document.getElementById("yrangemin").value =pymin;
+      document.getElementById("yrangemax").value =pymax;
+      document.getElementById("divergence").value =pdiverge;
+      document.getElementById("zoom").value = pzoom;
+      document.getElementById("accuracy").value = paccuracy;
+      }
+
       async function draw()
       {
           document.getElementById("clickBtn").className = "btn btn-warning";
           document.getElementById("clickBtn").innerHTML = "Generation in progress"
+          await new Promise(r => setTimeout(r, 500));
           updateVals()
           drawgrid();
           drawmandel();
@@ -193,6 +228,7 @@
       accuracy = parseFloat(document.getElementById("accuracy").value);
       log = document.getElementById("log");
       logScript="";
+      preview = document.getElementById("preview").checked;
       }
       
       function drawgrid(){
@@ -283,12 +319,14 @@
                 canvasContext.strokeRect((dimension/2) + centery + (i*zoom),dimension/2 - centerx - (h*zoom),accuracy,accuracy);
               }
           }
+          if(preview)
+          {
           await new Promise(r => setInterval(r, 0));
+          }
       } 
       //log.innerHTML = logScript;
       //logScript = "";   
       }
       drawEmpty()
 </script>
-
 </html>
